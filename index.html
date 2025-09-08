@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dot Journal Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Dot Journal Planner</h1>
+    <p class="tagline">Generate layout ideas tailored to your dotted notebook.</p>
+    <button id="theme-toggle" type="button" class="theme-btn" aria-label="Toggle dark mode">Dark Mode</button>
+  </header>
+  <main>
+    <section class="controls" aria-labelledby="form-title">
+      <h2 id="form-title">Journal Parameters</h2>
+      <form id="journal-form" novalidate>
+        <label>
+          Purpose / Theme
+          <input type="text" id="purpose" name="purpose" placeholder="e.g. Exercise journal" required />
+        </label>
+        <div class="inline-fields">
+          <label>
+            Width (dots)
+            <input type="number" id="width" name="width" min="5" max="100" required placeholder="27" value="27" />
+          </label>
+          <label>
+            Height (dots)
+            <input type="number" id="height" name="height" min="5" max="120" required placeholder="45" value="45" />
+          </label>
+          <label>
+            Orientation
+            <select id="orientation" name="orientation">
+              <option value="portrait" selected>Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          Page Mode
+          <select id="page-mode" name="page-mode">
+            <option value="single" selected>Single Page</option>
+            <option value="spread">Two Page Spread (Duplicate)</option>
+            <option value="spread-mirrored">Two Page Spread (Mirrored)</option>
+            <option value="spread-dual">Two Trackers (Side by Side)</option>
+            <option value="landscape-middle">Landscape Spread (Meet in Middle)</option>
+          </select>
+        </label>
+        <button type="submit">Generate Layout Ideas</button>
+      </form>
+      <div id="status-msg" class="status" aria-live="polite"></div>
+      <!-- Prompt configuration section intentionally hidden per request. -->
+    </section>
+
+    <section class="results" aria-labelledby="results-title">
+      <h2 id="results-title">Layout Ideas</h2>
+      <div id="ideas" class="ideas"></div>
+    </section>
+
+    <section class="canvas-section" aria-labelledby="preview-title">
+      <h2 id="preview-title">Dot Grid Preview</h2>
+      <canvas id="grid-canvas" width="600" height="800" aria-label="Dot grid preview" role="img"></canvas>
+      <div class="export-buttons">
+        <button id="download-png" type="button">Download PNG</button>
+        <button id="download-pdf" type="button">Download PDF</button>
+        <button id="download-md" type="button">Download Markdown</button>
+        <button id="toggle-guides" type="button">Toggle Guides</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <small>Generated locally. No data leaves your browser.</small>
+  </footer>
+  <script type="module" src="./src/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" integrity="sha256-vW0d72o5Gr2susx1bwyodH4qzM7gc3KJ2YMBX1IzBgY=" crossorigin="anonymous"></script>
+</body>
+</html>

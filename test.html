@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Generator Test Harness</title>
+<link rel="stylesheet" href="styles.css" />
+<style>body{padding:1rem;} pre{font-size:10px; line-height:10px;}</style>
+</head>
+<body>
+<h1>Test Harness</h1>
+<p>Open console to view debug output. This page auto-runs several sample purposes.</p>
+<div id="out"></div>
+<script type="module">
+import { generateIdeas } from './src/suggestions.js';
+import { loadPromptConfig } from './src/promptConfig.js';
+const out = document.getElementById('out');
+const config = await loadPromptConfig();
+const samples = [
+  { purpose: 'Exercise journal', w:27, h:45 },
+  { purpose: 'Meal tracking and nutrition', w:35, h:55 },
+  { purpose: 'Habit and mood tracking', w:25, h:40 }
+];
+for(const s of samples){
+  const ideas = generateIdeas({ purpose: s.purpose, width: s.w, height: s.h, promptConfig: config });
+  const section = document.createElement('section');
+  section.innerHTML = `<h2>${s.purpose} (${s.w}x${s.h})</h2>`;
+  ideas.forEach(i => {
+    const pre = document.createElement('pre');
+    pre.textContent = i.title + '\n' + i.ascii;
+    section.appendChild(pre);
+  });
+  out.appendChild(section);
+}
+</script>
+</body>
+</html>
